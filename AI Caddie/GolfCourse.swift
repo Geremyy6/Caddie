@@ -38,7 +38,7 @@ struct CourseSelectionView: View {
                     number: 1,
                     par: 4,
                     distance: 350,
-                    holeLocation: CGPoint(x: 0.9, y: 0.2) // Flag position on the hole image
+                    holeLocation: CGPoint(x: 0.22, y: 0.1) // Flag position on the hole image
                    /* teePositions: [
                         "White": CGPoint(x: 0.1, y: 0.8),
                         "Blue": CGPoint(x: 0.15, y: 0.75),
