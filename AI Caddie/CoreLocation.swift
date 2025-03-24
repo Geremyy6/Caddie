@@ -35,7 +35,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         if let lastShot = shots.last {
             let distance = calculateDistance(from: lastShot.coordinate, to: currentLocation)
             lastDistance = distance
-            suggestedClub = suggestClub(for: distance)
+           // suggestedClub = suggestClub(for: distance)
         }
         shots.append(Shot(coordinate: currentLocation))
     }
@@ -46,19 +46,36 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         return fromLocation.distance(from: toLocation)
     }
     
-    func suggestClub(for distance: Double) -> String {
-        switch distance {
-        case ..<50: return "Sand Wedge"
-        case ..<100: return "Pitching Wedge"
-        case ..<150: return "8-Iron"
-        case ..<200: return "5-Iron"
-        case ..<250: return "3-Iron"
-        default: return "Driver"
+    /*func suggestClub(for distance: Double) -> String {
+        // Load saved club distances from AppStorage
+        guard let clubData = UserDefaults.standard.string(forKey: "clubData"),
+              let decodedData = clubData.data(using: .utf8),
+              let clubDistances = try? JSONDecoder().decode([String: String].self, from: decodedData) else {
+            return "Club data not available"
         }
-    }
+        
+        // Convert user-defined distances to a sorted array
+        let sortedClubs = clubDistances.compactMap { key, value -> (String, Double)? in
+            if let dist = Double(value) {
+                return (key, dist)
+            }
+            return nil
+        }
+        .sorted { $0.1 > $1.1 } // Sort clubs from longest to shortest distance
+        
+        // Find the best club for the given distance
+        for (club, clubDistance) in sortedClubs {
+            if distance >= clubDistance {
+                return club
+            }
+        }
+        
+        return sortedClubs.last?.0 ?? "Driver" // Default to longest club if nothing matches
+    }*/
 }
 
 struct Shot: Identifiable {
     let id = UUID()
     let coordinate: CLLocationCoordinate2D
 }
+
