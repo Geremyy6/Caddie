@@ -16,6 +16,7 @@ struct ContentView: View {
     @State private var showCourseSelection = false
     @State private var showClubSettings = false // New state to show "Mi Bolsa"
 
+
     var body: some View {
         VStack {
             let holes = selectedCourse.holes
@@ -73,6 +74,7 @@ struct ContentView: View {
             if shots.count > 1 {
                 let lastShot = shots.last!
                 let distanceToHole = calculateDistance(from: lastShot, to: holeLocation)
+                
                 let club = suggestClub(for: distanceToHole)
 
                 Text("Distancia al hoyo: \(String(format: "%.2f", distanceToHole)) metros")
@@ -193,3 +195,4 @@ struct ContentView: View {
         return sortedClubs.last?.0 ?? "Driver" // Default to longest club if nothing matches
     }
 }
+
